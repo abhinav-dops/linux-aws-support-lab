@@ -1,0 +1,11 @@
+# Monitor every 5 minutes
+*/5 * * * * /home/ubuntu/linux-aws-support-lab/scripts/monitor.sh >> /var/log/cron-monitor.log 2>&1
+
+# Check nginx health every 5 minutes
+*/5 * * * * /home/ubuntu/linux-aws-support-lab/scripts/health.sh >> /var/log/cron-health.log 2>&1
+
+# Daily backup at 2AM
+0 2 * * * /home/ubuntu/linux-aws-support-lab/scripts/backup.sh >> /var/log/cron-backup.log 2>&1
+
+# Weekly log cleanup Sunday midnight
+0 0 * * 0 find /var/log -name "*.log" -mtime +7 -exec truncate -s 0 {} \;
